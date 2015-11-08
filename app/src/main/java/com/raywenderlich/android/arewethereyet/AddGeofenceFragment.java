@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class AddGeofenceFragment extends DialogFragment {
 
   // region Properties
@@ -65,7 +63,6 @@ public class AddGeofenceFragment extends DialogFragment {
           @Override
           public void onClick(View view) {
             if (dataIsValid()) {
-              List<NamedGeofence> geofences = GeofenceController.getInstance().getNamedGeofences();
               NamedGeofence geofence = new NamedGeofence();
               geofence.name = getViewHolder().nameEditText.getText().toString();
               geofence.latitude = Double.parseDouble(getViewHolder().latitudeEditText.getText().toString());

@@ -22,7 +22,6 @@
     </activity>
 
     <service android:name=".HD2015IntentService"/>
-
   </application>
 
 </manifest>
