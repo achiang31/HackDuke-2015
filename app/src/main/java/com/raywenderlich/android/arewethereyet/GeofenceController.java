@@ -110,6 +110,24 @@ public class GeofenceController {
       namedGeofences.add(namedGeofence);
     }
 
+    namedGeofences.clear();
+    try {
+      String[] array = AllGeofencesFragment.readFile("data.json", context).split("\n");
+      for(int count = 1; count < array.length - 1; count++)
+      {
+        String[] line = array[count].trim().split(" ");
+        NamedGeofence geofence = new NamedGeofence();
+        geofence.name = (line[0].replace("{\"accident_index\":\"", "").replace("\"", "").replace(",", ""));
+        geofence.latitude = Double.parseDouble(line[4].replace("\"latitude\":", "").replace(",", ""));
+        geofence.longitude = Double.parseDouble(line[3].replace("\"longitude\":", "").replace(",", ""));
+        geofence.radius = 100;
+        namedGeofences.add(geofence);
+        System.out.println(geofence.name + " added!");
+      }
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+
     // Sort namedGeofences by name
     Collections.sort(namedGeofences);
 

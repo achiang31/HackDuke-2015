@@ -1,6 +1,7 @@
 package com.raywenderlich.android.arewethereyet;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.software.shell.fab.ActionButton;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,13 +78,6 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
         dialogFragment.show(getActivity().getSupportFragmentManager(), "AddGeofenceFragment");
       }
     });
-
-    NamedGeofence geofence = new NamedGeofence();
-    geofence.name = "twintest";
-    geofence.latitude = 36.003401;
-    geofence.longitude = -78.93971;
-    geofence.radius = 11;
-    GeofenceController.getInstance().addGeofence(geofence, geofenceControllerListener);
 
     refresh();
   }
@@ -184,5 +179,19 @@ public class AllGeofencesFragment extends Fragment implements AddGeofenceFragmen
     }
   }
 
-  // endregion
+  public static String readFile(String fileName, Context c) {
+    try {
+      InputStream is = c.getAssets().open(fileName);
+      int size = is.available();
+      byte[] buffer = new byte[size];
+      is.read(buffer);
+      is.close();
+      String text = new String(buffer);
+
+      return text;
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 }
